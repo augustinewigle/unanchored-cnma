@@ -1,5 +1,7 @@
 # unanchored-cnma
 
+This repo contains the data and code used to produce the results in the Application section of the paper.
+
 all_mortality.csv - data on all mortality from the systematic literature review done by Welton et al
 
 all_mortality2.csv - same dataset as before but arms 1 and 2 of trial id 15 are combined because the treatments are the same - for compatibility with netmeta
