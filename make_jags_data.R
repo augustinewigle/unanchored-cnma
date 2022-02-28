@@ -71,7 +71,7 @@ make_jags_data <- function(data_obj, studycol, components) {
     }
     
   }
-  
+
   # Make Ustar
   
   Ustar <- array(dim = c(maxna-1, maxna, nstudy))
@@ -138,6 +138,10 @@ make_jags_data <- function(data_obj, studycol, components) {
     
   }
   
+  jagsdata$nstudy <- nstudy
+  jagsdata$narm <- narm
+  jagsdata$ncomp <- ncomp
+  
   
   return(list(arm_un = list(narm = narm,
                             nstudy = nstudy,
@@ -154,6 +158,13 @@ make_jags_data <- function(data_obj, studycol, components) {
                                  Ustar = Ustar,
                                  ystar = ystar,
                                  Sstar = Sstar),
+              arm_anchor = list(narm = narm,
+                                nstudy = nstudy,
+                                ncomp = ncomp,
+                                V1 = V1,
+                                Sigma = Sigma,
+                                n = jagsdata$n,
+                                r = jagsdata$r),
               jagsdata = jagsdata))
   
   

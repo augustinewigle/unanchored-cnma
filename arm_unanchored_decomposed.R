@@ -1,4 +1,4 @@
-# Arm- based unanchored model
+# Arm - based unanchored model
 
 model {
   
