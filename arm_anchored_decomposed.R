@@ -9,7 +9,13 @@ model{
       p[i,j] <- ilogit(logitp[i,j])
       r[i,j] ~ dbinom(p[i,j], n[i,j])
       
+      # deviance contribution
+      rhat[i,j] <-p[i,j]*n[i,j]
+      dev[i,j] <- 2 * (r[i,j] * (log(r[i,j])-log(rhat[i,j]))  +  (n[i,j]-r[i,j]) * (log(n[i,j]-r[i,j]) - log(n[i,j]-rhat[i,j])))
+      
     }
+    
+    resdev[i] <- sum(dev[i,1:narm[i]])
     
     eps[i,1] <- 0 # no heterogeneity in arm 1 because arm 1 contains reference treatment
     md[i,1] <- 0
@@ -24,6 +30,8 @@ model{
     }
     
   }
+  
+  totresdev <- sum(resdev[1:nstudy])
   
   tau <- 1/sigma^2
   

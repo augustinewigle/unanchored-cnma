@@ -1,7 +1,7 @@
 #####################################
 # Script for results in Application
 # By Augustine Wigle
-# February 28, 2022
+# March 15 2022
 #####################################
 
 # libraries
@@ -12,7 +12,7 @@ library(runjags)
 source("make_jags_data.R")
 
 # Read in mortality data
-# allmort <- read.csv("all_mortality.csv")
+
 allmort <- read.csv("all_mortality.csv")
 allmort <- allmort[with(allmort, order(study, -usual)),] # reorder so first arm in each study is always usual care
 
@@ -41,9 +41,7 @@ anchor_samples <- run.jags(model = "arm_anchored_decomposed.R", # if you want to
                         n.chains = 2,
                         burnin = 10000,
                         sample = 50000) # warning for unused variable Sigma is ok, Sigma only needed if multivariate version used
-
 anchor_dic <- extract(anchor_samples, "DIC")
-
 results_anchor <- summary(anchor_samples)
 
 # Unanchored, arm-level ------------------------------------------------

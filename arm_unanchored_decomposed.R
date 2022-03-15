@@ -12,7 +12,13 @@ model {
       r[i,j] ~ dbinom(p[i,j], n[i,j])
       taud[i,j] <- 2*j/(sigma^2*(j+1))
       
+      # deviance contribution
+      rhat[i,j] <-p[i,j]*n[i,j]
+      dev[i,j] <- 2 * (r[i,j] * (log(r[i,j])-log(rhat[i,j]))  +  (n[i,j]-r[i,j]) * (log(n[i,j]-r[i,j]) - log(n[i,j]-rhat[i,j])))
+      
     }
+    
+    resdev[i] <- sum(dev[i,1:narm[i]])
     
     md[i,1] <- 0
     
@@ -23,6 +29,8 @@ model {
     }
     
   }
+  
+  totresdev <- sum(resdev[])
   
   # priors
   for(i in 1:nstudy) {
